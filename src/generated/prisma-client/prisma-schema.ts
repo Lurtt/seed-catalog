@@ -47,7 +47,7 @@ type Subscription {
 
 type User {
   id: ID!
-  email: String
+  email: String!
   name: String!
 }
 
@@ -58,7 +58,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  email: String
+  email: String!
   name: String!
 }
 
@@ -82,7 +82,7 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  email: String
+  email: String!
   name: String!
 }
 

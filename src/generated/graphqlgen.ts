@@ -27,7 +27,7 @@ export namespace QueryResolvers {
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
-    email: (parent: User) => (parent.email === undefined ? null : parent.email),
+    email: (parent: User) => parent.email,
     name: (parent: User) => parent.name
   };
 
@@ -43,7 +43,7 @@ export namespace UserResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => string | null | Promise<string | null>;
+  ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: User,
@@ -65,7 +65,7 @@ export namespace UserResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => string | null | Promise<string | null>;
+    ) => string | Promise<string>;
 
     name: (
       parent: User,
@@ -81,6 +81,7 @@ export namespace MutationResolvers {
 
   export interface ArgsCreateUser {
     name: string;
+    email: string;
   }
 
   export type CreateUserResolver = (

@@ -1,18 +1,7 @@
 import { prisma } from './generated/prisma-client'
 import { GraphQLServer } from 'graphql-yoga'
 
-const resolvers = {
-  Query: {
-    users(parent, args, context) {
-      return context.prisma.users()
-    },
-  },
-  Mutation: {
-    createUser(parent, args, context) {
-      return context.prisma.createUser({ name: args.name })
-    },
-  },
-}
+import { resolvers } from './resolvers'
 
 const options = {
   port: 9000,
@@ -21,7 +10,7 @@ const options = {
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
-  resolvers,
+  resolvers: resolvers as any,
   context: {
     prisma,
   },

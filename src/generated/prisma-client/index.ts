@@ -114,7 +114,7 @@ export type UserOrderByInput =
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export interface UserCreateInput {
-  email?: String;
+  email: String;
   name: String;
 }
 
@@ -230,7 +230,7 @@ export interface BatchPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
-  email?: String;
+  email: String;
   name: String;
 }
 
@@ -291,7 +291,7 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface User {
   id: ID_Output;
-  email?: String;
+  email: String;
   name: String;
 }
 
