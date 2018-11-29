@@ -1,4 +1,5 @@
 import { QueryResolvers } from '../generated/graphqlgen'
+import { clearConfigCache } from 'prettier'
 
 const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
