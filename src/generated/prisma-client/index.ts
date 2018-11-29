@@ -104,8 +104,10 @@ export type UserOrderByInput =
   | "id_DESC"
   | "email_ASC"
   | "email_DESC"
-  | "name_ASC"
-  | "name_DESC"
+  | "firstname_ASC"
+  | "firstname_DESC"
+  | "lastname_ASC"
+  | "lastname_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -115,17 +117,20 @@ export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export interface UserCreateInput {
   email: String;
-  name: String;
+  firstname: String;
+  lastname: String;
 }
 
 export interface UserUpdateInput {
   email?: String;
-  name?: String;
+  firstname?: String;
+  lastname?: String;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: String;
-  name?: String;
+  firstname?: String;
+  lastname?: String;
 }
 
 export interface UserWhereInput {
@@ -157,20 +162,34 @@ export interface UserWhereInput {
   email_not_starts_with?: String;
   email_ends_with?: String;
   email_not_ends_with?: String;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
+  firstname?: String;
+  firstname_not?: String;
+  firstname_in?: String[] | String;
+  firstname_not_in?: String[] | String;
+  firstname_lt?: String;
+  firstname_lte?: String;
+  firstname_gt?: String;
+  firstname_gte?: String;
+  firstname_contains?: String;
+  firstname_not_contains?: String;
+  firstname_starts_with?: String;
+  firstname_not_starts_with?: String;
+  firstname_ends_with?: String;
+  firstname_not_ends_with?: String;
+  lastname?: String;
+  lastname_not?: String;
+  lastname_in?: String[] | String;
+  lastname_not_in?: String[] | String;
+  lastname_lt?: String;
+  lastname_lte?: String;
+  lastname_gt?: String;
+  lastname_gte?: String;
+  lastname_contains?: String;
+  lastname_not_contains?: String;
+  lastname_starts_with?: String;
+  lastname_not_starts_with?: String;
+  lastname_ends_with?: String;
+  lastname_not_ends_with?: String;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
@@ -231,7 +250,8 @@ export interface BatchPayloadSubscription
 export interface UserPreviousValues {
   id: ID_Output;
   email: String;
-  name: String;
+  firstname: String;
+  lastname: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -239,7 +259,8 @@ export interface UserPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
-  name: () => Promise<String>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -247,7 +268,8 @@ export interface UserPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
+  firstname: () => Promise<AsyncIterator<String>>;
+  lastname: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -292,13 +314,15 @@ export interface UserSubscriptionPayloadSubscription
 export interface User {
   id: ID_Output;
   email: String;
-  name: String;
+  firstname: String;
+  lastname: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
-  name: () => Promise<String>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
 }
 
 export interface UserSubscription
@@ -306,7 +330,8 @@ export interface UserSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
+  firstname: () => Promise<AsyncIterator<String>>;
+  lastname: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnection {}

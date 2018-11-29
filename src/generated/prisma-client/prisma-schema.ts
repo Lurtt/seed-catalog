@@ -48,7 +48,8 @@ type Subscription {
 type User {
   id: ID!
   email: String!
-  name: String!
+  firstname: String!
+  lastname: String!
 }
 
 type UserConnection {
@@ -59,7 +60,8 @@ type UserConnection {
 
 input UserCreateInput {
   email: String!
-  name: String!
+  firstname: String!
+  lastname: String!
 }
 
 type UserEdge {
@@ -72,8 +74,10 @@ enum UserOrderByInput {
   id_DESC
   email_ASC
   email_DESC
-  name_ASC
-  name_DESC
+  firstname_ASC
+  firstname_DESC
+  lastname_ASC
+  lastname_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -83,7 +87,8 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String!
-  name: String!
+  firstname: String!
+  lastname: String!
 }
 
 type UserSubscriptionPayload {
@@ -106,12 +111,14 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   email: String
-  name: String
+  firstname: String
+  lastname: String
 }
 
 input UserUpdateManyMutationInput {
   email: String
-  name: String
+  firstname: String
+  lastname: String
 }
 
 input UserWhereInput {
@@ -143,20 +150,34 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
+  firstname: String
+  firstname_not: String
+  firstname_in: [String!]
+  firstname_not_in: [String!]
+  firstname_lt: String
+  firstname_lte: String
+  firstname_gt: String
+  firstname_gte: String
+  firstname_contains: String
+  firstname_not_contains: String
+  firstname_starts_with: String
+  firstname_not_starts_with: String
+  firstname_ends_with: String
+  firstname_not_ends_with: String
+  lastname: String
+  lastname_not: String
+  lastname_in: [String!]
+  lastname_not_in: [String!]
+  lastname_lt: String
+  lastname_lte: String
+  lastname_gt: String
+  lastname_gte: String
+  lastname_contains: String
+  lastname_not_contains: String
+  lastname_starts_with: String
+  lastname_not_starts_with: String
+  lastname_ends_with: String
+  lastname_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

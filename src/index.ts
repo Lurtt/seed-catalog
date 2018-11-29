@@ -5,14 +5,16 @@ import { resolvers } from './resolvers'
 
 const options = {
   port: 9000,
-  playground: '/playground',
 }
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers: resolvers as any,
-  context: {
-    prisma,
+  context: request => {
+    return {
+      ...request,
+      prisma,
+    }
   },
 })
 server.start(options, ({ port }) =>
