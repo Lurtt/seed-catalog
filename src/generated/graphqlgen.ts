@@ -108,26 +108,46 @@ export namespace UserResolvers {
 export namespace MutationResolvers {
   export const defaultResolvers = {};
 
-  export interface ArgsCreateUser {
+  export interface ArgsSignup {
     email: string;
+    password: string;
     firstname: string;
     lastname: string;
   }
 
-  export type CreateUserResolver = (
+  export interface ArgsSignin {
+    email: string;
+    password: string;
+  }
+
+  export type SignupResolver = (
     parent: undefined,
-    args: ArgsCreateUser,
+    args: ArgsSignup,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => User | null | Promise<User | null>;
+  ) => User | Promise<User>;
+
+  export type SigninResolver = (
+    parent: undefined,
+    args: ArgsSignin,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
 
   export interface Type {
-    createUser: (
+    signup: (
       parent: undefined,
-      args: ArgsCreateUser,
+      args: ArgsSignup,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => User | null | Promise<User | null>;
+    ) => User | Promise<User>;
+
+    signin: (
+      parent: undefined,
+      args: ArgsSignin,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
   }
 }
 
