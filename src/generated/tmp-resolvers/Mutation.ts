@@ -10,5 +10,8 @@ export const Mutation: MutationResolvers.Type = {
   },
   signin: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  signout: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

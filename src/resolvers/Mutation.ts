@@ -34,6 +34,12 @@ const Mutation: MutationResolvers.Type = {
 
     return user
   },
+
+  signout: (parent, args, context) => {
+    context.request.session.destroy()
+
+    return 'You have successfully logged out!'
+  },
 }
 
 export { Mutation }

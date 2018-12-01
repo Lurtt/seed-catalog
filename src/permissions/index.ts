@@ -12,4 +12,7 @@ export const permissions = shield({
   Query: {
     users: rules.isAuthenticatedUser,
   },
+  Mutation: {
+    signout: rules.isAuthenticatedUser,
+  },
 })

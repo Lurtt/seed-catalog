@@ -134,6 +134,13 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
+  export type SignoutResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
   export interface Type {
     signup: (
       parent: undefined,
@@ -148,6 +155,13 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
+
+    signout: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
   }
 }
 
