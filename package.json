@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma:deploy": "prisma deploy",
     "prisma:types": "graphqlgen",
-    "prisma:all": "yarn prisma:deploy && yarn prisma:types"
+    "prisma:all": "yarn prisma:deploy && yarn prisma:types",
+    "prisma:seed": "prisma seed"
   },
   "keywords": [],
   "author": "",

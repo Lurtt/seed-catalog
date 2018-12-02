@@ -4,6 +4,8 @@ import { GraphQLResolveInfo } from "graphql";
 import { User } from "./prisma-client";
 import { Context } from "../types";
 
+type Role = "ADMIN" | "USER";
+
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
@@ -29,7 +31,8 @@ export namespace UserResolvers {
     id: (parent: User) => parent.id,
     email: (parent: User) => parent.email,
     firstname: (parent: User) => parent.firstname,
-    lastname: (parent: User) => parent.lastname
+    lastname: (parent: User) => parent.lastname,
+    role: (parent: User) => parent.role
   };
 
   export type IdResolver = (
@@ -67,6 +70,13 @@ export namespace UserResolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
+  export type RoleResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Role | Promise<Role>;
+
   export interface Type {
     id: (
       parent: User,
@@ -102,6 +112,13 @@ export namespace UserResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
+
+    role: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Role | Promise<Role>;
   }
 }
 
