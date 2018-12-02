@@ -1,9 +1,10 @@
-import { prisma } from './generated/prisma-client'
 import { GraphQLServer } from 'graphql-yoga'
 import * as session from 'express-session'
 
+import { prisma } from './generated/prisma-client'
 import { resolvers } from './resolvers'
 import { permissions } from './permissions'
+import { getUser } from './utils'
 
 const options = {
   port: 9000,
@@ -17,9 +18,11 @@ const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers: resolvers as any,
   middlewares: [permissions],
-  context: request => {
+  context: (request: any) => {
+    const httpRequest = { ...request }
     return {
       ...request,
+      user: getUser(httpRequest.request),
       prisma,
     }
   },
