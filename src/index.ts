@@ -1,3 +1,6 @@
+import { config } from 'dotenv'
+config({ path: 'variables.env' })
+
 import { GraphQLServer } from 'graphql-yoga'
 import * as session from 'express-session'
 

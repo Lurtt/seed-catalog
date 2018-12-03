@@ -6,10 +6,12 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma:deploy": "prisma deploy",
-    "prisma:types": "graphqlgen",
     "prisma:all": "yarn prisma:deploy && yarn prisma:types",
-    "prisma:seed": "prisma seed"
+    "prisma:types": "graphqlgen",
+    "prisma:deploy": "prisma deploy --env-file variables.env",
+    "prisma:seed": "prisma seed --env-file variables.env",
+    "prisma:reset": "prisma reset --env-file variables.env",
+    "prisma:token": "prisma token --env-file variables.env"
   },
   "keywords": [],
   "author": "",
