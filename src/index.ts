@@ -10,10 +10,10 @@ import { permissions } from './permissions'
 import { getUser } from './utils'
 
 const options = {
-  port: 9000,
+  port: process.env.SERVER_PORT,
   cors: {
     credentials: true,
-    origin: 'http://localhost:8080',
+    origin: process.env.FRONTEND_URL,
   },
 }
 
@@ -33,14 +33,14 @@ const server = new GraphQLServer({
 
 server.express.use(
   session({
-    name: 'qid',
-    secret: `abrakadabra`,
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24,
+      maxAge: parseInt(process.env.SESSION_AGE),
     },
   }),
 )
