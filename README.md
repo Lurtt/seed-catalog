@@ -84,7 +84,7 @@ Because we have prisma secret defined in `prima.yml` file, you will probably hav
 
 You can test it by running query
 
-```json
+```graphql
 {
   users {
     email
