@@ -5,6 +5,9 @@ import { QueryResolvers } from "../graphqlgen";
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
+  me: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
   users: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   }

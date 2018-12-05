@@ -1,4 +1,4 @@
-import { Prisma } from './generated/prisma-client'
+import { Prisma, Role, ID_Input } from './generated/prisma-client'
 import { Request as ExpressRequest } from 'express-serve-static-core'
 
 interface Context {
@@ -17,8 +17,8 @@ interface Session {
 }
 
 interface User {
-  id: String
-  role: String
+  id: ID_Input
+  role: Role
 }
 
 export { Context, Request }

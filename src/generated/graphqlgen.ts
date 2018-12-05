@@ -9,6 +9,13 @@ type Role = "ADMIN" | "USER";
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
+  export type MeResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | null | Promise<User | null>;
+
   export type UsersResolver = (
     parent: undefined,
     args: {},
@@ -17,6 +24,13 @@ export namespace QueryResolvers {
   ) => User[] | Promise<User[]>;
 
   export interface Type {
+    me: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | null | Promise<User | null>;
+
     users: (
       parent: undefined,
       args: {},
