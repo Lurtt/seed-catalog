@@ -108,7 +108,7 @@ You will get the error like
 }
 ```
 
-To fix this issue you have to generate a token by running `prisma token` in the terminal. It will return token
+To fix this issue you have to generate a token by running `yarn prisma:token` in the terminal. It will return token
 
 ```
 eyJhbGciOiNiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjpY2UiOiJkZWZhdWx0QGRlZmF1bHQiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaE1NDQ0NTI0OTd9.GJuV99rUnxEd8KI

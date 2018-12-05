@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "graphqlgen": "^0.4.0",
-    "prisma": "^1.21.1",
+    "prisma": "^1.22.0",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   }
