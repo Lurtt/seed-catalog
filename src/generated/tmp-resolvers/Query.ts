@@ -10,5 +10,17 @@ export const Query: QueryResolvers.Type = {
   },
   users: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  plants: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  donors: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  offer: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  offers: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

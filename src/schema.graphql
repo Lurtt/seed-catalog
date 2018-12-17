@@ -1,26 +1,31 @@
-# import Role from "generated/prisma.graphql"
+# import * from "generated/prisma.graphql"
 
 type Query {
   me: User
   users: [User!]!
+  plants: [Plant!]!
+  donors: [Donor!]!
+  offer(id: ID!): Offer
+  offers: [Offer!]!
 }
 
 type Mutation {
-  signup(
-    email: String!
-    password: String!
-    firstname: String!
-    lastname: String!
-  ): User!
+  signup(email: String!, password: String!, name: String!): User!
   signin(email: String!, password: String!): User!
   signout: String
+
+  createDonor(number: String!, name: String!): Donor!
+  updateDonor(id: ID!, number: String, name: String): Donor!
+  deleteDonor(id: ID!): Donor
+
+  createPlant(name: String!): Plant!
+  updatePlant(id: ID!, name: String): Plant!
+  deletePlant(id: ID!): Plant
 }
 
 type User {
   id: ID!
   email: String!
-  firstname: String!
-  lastname: String!
-  fullname: String!
+  name: String!
   role: Role!
 }

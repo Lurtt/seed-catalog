@@ -7,9 +7,35 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
-  firstname: String!
-  lastname: String!
+  name: String!
   role: Role! @default(value: "USER")
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type Plant {
+  id: ID! @unique
+  name: String! @unique
+  offerItems: [OfferItem!]!
+    @relation(name: "OfferItemsByPlant", onDelete: CASCADE)
+}
+
+type Donor {
+  id: ID! @unique
+  number: String! @unique
+  name: String!
+  OfferItems: [OfferItem!]! @relation(name: "OfferItemsByDonor")
+}
+
+type Offer {
+  id: ID! @unique
+  name: String!
+  items: [OfferItem!]! @relation(name: "ItemsByOffer", onDelete: CASCADE)
+}
+
+type OfferItem {
+  id: ID! @unique
+  offer: Offer! @relation(name: "ItemsByOffer")
+  donors: [Donor!]! @relation(name: "OfferItemsByDonor")
+  plant: Plant! @relation(name: "OfferItemsByPlant")
 }

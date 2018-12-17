@@ -13,5 +13,23 @@ export const Mutation: MutationResolvers.Type = {
   },
   signout: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  createDonor: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  updateDonor: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  deleteDonor: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  createPlant: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  updatePlant: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  deletePlant: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

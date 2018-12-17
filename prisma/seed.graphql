@@ -2,12 +2,26 @@ mutation {
   admin: createUser(
     data: {
       email: "root@admin.com"
-      firstname: "root"
-      lastname: "admin"
+      name: "admin"
       password: "$2b$10$wPpaMnhznYmqy/7L9ML3Yu8AGeTtmL6kR4mzivOg5L0/hro/KD3Cy" # secret42
       role: ADMIN
     }
   ) {
     id
+  }
+}
+
+mutation {
+  donor: createDonor(data: { number: "1", name: "John Rambo" }) {
+    id
+    number
+    name
+  }
+}
+
+mutation {
+  plant: createPlant(data: { name: "Dwarf wild rose – Rosa virginiana" }) {
+    id
+    name
   }
 }
