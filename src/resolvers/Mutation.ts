@@ -64,6 +64,19 @@ const Mutation: MutationResolvers.Type = {
   deletePlant: (parent, { id }, context: Context) => {
     return context.prisma.deletePlant({ id })
   },
+
+  createOffer: (parent, { name }, context: Context) => {
+    return context.prisma.createOffer({ name })
+  },
+  updateOffer: (parent, { id, name }, context: Context) => {
+    return context.prisma.updateOffer({
+      where: { id },
+      data: { name },
+    })
+  },
+  deleteOffer: (parent, { id }, context: Context) => {
+    return context.prisma.deleteOffer({ id })
+  },
 }
 
 export { Mutation }

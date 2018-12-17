@@ -21,6 +21,10 @@ type Mutation {
   createPlant(name: String!): Plant!
   updatePlant(id: ID!, name: String): Plant!
   deletePlant(id: ID!): Plant
+
+  createOffer(name: String!): Offer!
+  updateOffer(id: ID!, name: String): Offer!
+  deleteOffer(id: ID!): Offer
 }
 
 type User {
