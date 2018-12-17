@@ -6,7 +6,7 @@ type Query {
   plants: [Plant!]!
   donors: [Donor!]!
   offer(id: ID!): Offer
-  offers: [Offer!]!
+  offers(where: OfferWhereInput, orderBy: OfferOrderByInput): [Offer]!
 }
 
 type Mutation {

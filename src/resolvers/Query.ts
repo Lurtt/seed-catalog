@@ -17,8 +17,8 @@ const Query: QueryResolvers.Type = {
   donors: (parent, args, context: Context) => {
     return context.prisma.donors()
   },
-  offers: (parent, args, context: Context) => {
-    return context.prisma.offers()
+  offers: (parent, { where, orderBy }, context: Context) => {
+    return context.prisma.offers({ where, orderBy })
   },
   offer: (parent, { id }, context: Context) => {
     return context.prisma.offer({ id })
