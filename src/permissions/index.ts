@@ -9,6 +9,14 @@ const permissions = shield({
   },
   Mutation: {
     signout: isAuthenticatedUser,
+
+    createDonor: and(isAuthenticatedUser, isAdmin),
+    updateDonor: and(isAuthenticatedUser, isAdmin),
+    deleteDonor: and(isAuthenticatedUser, isAdmin),
+
+    createPlant: and(isAuthenticatedUser, isAdmin),
+    updatePlant: and(isAuthenticatedUser, isAdmin),
+    deletePlant: and(isAuthenticatedUser, isAdmin),
   },
 })
 

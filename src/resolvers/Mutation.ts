@@ -33,7 +33,6 @@ const Mutation: MutationResolvers.Type = {
 
     return user
   },
-
   signout: (parent, args, context: Context) => {
     context.request.session.destroy()
 

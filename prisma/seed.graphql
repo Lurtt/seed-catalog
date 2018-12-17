@@ -1,4 +1,4 @@
-mutation {
+mutation seed {
   admin: createUser(
     data: {
       email: "root@admin.com"
@@ -9,19 +9,10 @@ mutation {
   ) {
     id
   }
-}
-
-mutation {
   donor: createDonor(data: { number: "1", name: "John Rambo" }) {
     id
-    number
-    name
   }
-}
-
-mutation {
   plant: createPlant(data: { name: "Dwarf wild rose – Rosa virginiana" }) {
     id
-    name
   }
 }
