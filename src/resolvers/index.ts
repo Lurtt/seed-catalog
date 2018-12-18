@@ -6,7 +6,7 @@ import { Plant } from './Plant'
 import { OfferItem } from './OfferItem'
 import { Offer } from './Offer'
 import { Donor } from './Donor'
-import { Mutation } from './Mutation'
+import { Mutation } from './Mutations'
 
 const resolvers: Resolvers = {
   Query,
