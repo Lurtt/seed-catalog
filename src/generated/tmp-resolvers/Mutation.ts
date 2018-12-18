@@ -40,5 +40,14 @@ export const Mutation: MutationResolvers.Type = {
   },
   deleteOffer: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  createOfferItem: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  deleteOfferItem: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  unassignOfferItemDonor: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

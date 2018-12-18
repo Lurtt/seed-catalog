@@ -1261,6 +1261,21 @@ export namespace MutationResolvers {
     id: string;
   }
 
+  export interface ArgsCreateOfferItem {
+    offerId: string;
+    donorId: string;
+    plantId: string;
+  }
+
+  export interface ArgsDeleteOfferItem {
+    id: string;
+  }
+
+  export interface ArgsUnassignOfferItemDonor {
+    donorId: string;
+    offerItemId: string;
+  }
+
   export type SignupResolver = (
     parent: undefined,
     args: ArgsSignup,
@@ -1344,6 +1359,27 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Offer | null | Promise<Offer | null>;
+
+  export type CreateOfferItemResolver = (
+    parent: undefined,
+    args: ArgsCreateOfferItem,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => OfferItem | Promise<OfferItem>;
+
+  export type DeleteOfferItemResolver = (
+    parent: undefined,
+    args: ArgsDeleteOfferItem,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => OfferItem | null | Promise<OfferItem | null>;
+
+  export type UnassignOfferItemDonorResolver = (
+    parent: undefined,
+    args: ArgsUnassignOfferItemDonor,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
 
   export interface Type {
     signup: (
@@ -1429,6 +1465,27 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Offer | null | Promise<Offer | null>;
+
+    createOfferItem: (
+      parent: undefined,
+      args: ArgsCreateOfferItem,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => OfferItem | Promise<OfferItem>;
+
+    deleteOfferItem: (
+      parent: undefined,
+      args: ArgsDeleteOfferItem,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => OfferItem | null | Promise<OfferItem | null>;
+
+    unassignOfferItemDonor: (
+      parent: undefined,
+      args: ArgsUnassignOfferItemDonor,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
   }
 }
 

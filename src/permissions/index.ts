@@ -17,6 +17,13 @@ const permissions = shield({
     createPlant: and(isAuthenticatedUser, isAdmin),
     updatePlant: and(isAuthenticatedUser, isAdmin),
     deletePlant: and(isAuthenticatedUser, isAdmin),
+
+    createOffer: and(isAuthenticatedUser, isAdmin),
+    updateOffer: and(isAuthenticatedUser, isAdmin),
+    deleteOffer: and(isAuthenticatedUser, isAdmin),
+
+    createOfferItem: and(isAuthenticatedUser, isAdmin),
+    deleteOfferItem: and(isAuthenticatedUser, isAdmin),
   },
 })
 

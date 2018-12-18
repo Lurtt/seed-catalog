@@ -1,4 +1,5 @@
 import { hash, compare } from 'bcrypt'
+import { isEmpty } from 'lodash'
 
 import { MutationResolvers } from '../generated/graphqlgen'
 import { Context } from '../types'
@@ -76,6 +77,40 @@ const Mutation: MutationResolvers.Type = {
   },
   deleteOffer: (parent, { id }, context: Context) => {
     return context.prisma.deleteOffer({ id })
+  },
+
+  createOfferItem: (
+    parent,
+    { offerId, donorId, plantId },
+    context: Context,
+  ) => {
+    return context.prisma.createOfferItem({
+      offer: { connect: { id: offerId } },
+      donors: { connect: { id: donorId } },
+      plant: { connect: { id: plantId } },
+    })
+  },
+  deleteOfferItem: (parent, { id }, context: Context) => {
+    return context.prisma.deleteOfferItem({ id })
+  },
+  unassignOfferItemDonor: async (
+    parent,
+    { donorId, offerItemId },
+    context: Context,
+  ) => {
+    const donors = await context.prisma
+      .updateOfferItem({
+        where: { id: offerItemId },
+        data: { donors: { disconnect: { id: donorId } } },
+      })
+      .donors()
+
+    if (isEmpty(donors)) {
+      await context.prisma.deleteOfferItem({ id: offerItemId })
+      return 'The record was removed from offer because it had no donors'
+    }
+
+    return 'The record was modified'
   },
 }
 
