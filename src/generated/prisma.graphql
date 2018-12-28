@@ -28,6 +28,7 @@ type Donor {
   id: ID!
   number: String!
   name: String!
+  offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer!]
   OfferItems(where: OfferItemWhereInput, orderBy: OfferItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OfferItem!]
 }
 
@@ -40,6 +41,7 @@ type DonorConnection {
 input DonorCreateInput {
   number: String!
   name: String!
+  offers: OfferCreateManyWithoutDonorsInput
   OfferItems: OfferItemCreateManyWithoutDonorsInput
 }
 
@@ -48,9 +50,21 @@ input DonorCreateManyWithoutOfferItemsInput {
   connect: [DonorWhereUniqueInput!]
 }
 
+input DonorCreateManyWithoutOffersInput {
+  create: [DonorCreateWithoutOffersInput!]
+  connect: [DonorWhereUniqueInput!]
+}
+
 input DonorCreateWithoutOfferItemsInput {
   number: String!
   name: String!
+  offers: OfferCreateManyWithoutDonorsInput
+}
+
+input DonorCreateWithoutOffersInput {
+  number: String!
+  name: String!
+  OfferItems: OfferItemCreateManyWithoutDonorsInput
 }
 
 type DonorEdge {
@@ -146,6 +160,7 @@ input DonorSubscriptionWhereInput {
 input DonorUpdateInput {
   number: String
   name: String
+  offers: OfferUpdateManyWithoutDonorsInput
   OfferItems: OfferItemUpdateManyWithoutDonorsInput
 }
 
@@ -170,6 +185,17 @@ input DonorUpdateManyWithoutOfferItemsInput {
   updateMany: [DonorUpdateManyWithWhereNestedInput!]
 }
 
+input DonorUpdateManyWithoutOffersInput {
+  create: [DonorCreateWithoutOffersInput!]
+  delete: [DonorWhereUniqueInput!]
+  connect: [DonorWhereUniqueInput!]
+  disconnect: [DonorWhereUniqueInput!]
+  update: [DonorUpdateWithWhereUniqueWithoutOffersInput!]
+  upsert: [DonorUpsertWithWhereUniqueWithoutOffersInput!]
+  deleteMany: [DonorScalarWhereInput!]
+  updateMany: [DonorUpdateManyWithWhereNestedInput!]
+}
+
 input DonorUpdateManyWithWhereNestedInput {
   where: DonorScalarWhereInput!
   data: DonorUpdateManyDataInput!
@@ -178,6 +204,13 @@ input DonorUpdateManyWithWhereNestedInput {
 input DonorUpdateWithoutOfferItemsDataInput {
   number: String
   name: String
+  offers: OfferUpdateManyWithoutDonorsInput
+}
+
+input DonorUpdateWithoutOffersDataInput {
+  number: String
+  name: String
+  OfferItems: OfferItemUpdateManyWithoutDonorsInput
 }
 
 input DonorUpdateWithWhereUniqueWithoutOfferItemsInput {
@@ -185,10 +218,21 @@ input DonorUpdateWithWhereUniqueWithoutOfferItemsInput {
   data: DonorUpdateWithoutOfferItemsDataInput!
 }
 
+input DonorUpdateWithWhereUniqueWithoutOffersInput {
+  where: DonorWhereUniqueInput!
+  data: DonorUpdateWithoutOffersDataInput!
+}
+
 input DonorUpsertWithWhereUniqueWithoutOfferItemsInput {
   where: DonorWhereUniqueInput!
   update: DonorUpdateWithoutOfferItemsDataInput!
   create: DonorCreateWithoutOfferItemsInput!
+}
+
+input DonorUpsertWithWhereUniqueWithoutOffersInput {
+  where: DonorWhereUniqueInput!
+  update: DonorUpdateWithoutOffersDataInput!
+  create: DonorCreateWithoutOffersInput!
 }
 
 input DonorWhereInput {
@@ -234,6 +278,9 @@ input DonorWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  offers_every: OfferWhereInput
+  offers_some: OfferWhereInput
+  offers_none: OfferWhereInput
   OfferItems_every: OfferItemWhereInput
   OfferItems_some: OfferItemWhereInput
   OfferItems_none: OfferItemWhereInput
@@ -294,6 +341,7 @@ interface Node {
 type Offer {
   id: ID!
   name: String!
+  donors(where: DonorWhereInput, orderBy: DonorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Donor!]
   items(where: OfferItemWhereInput, orderBy: OfferItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OfferItem!]
 }
 
@@ -305,7 +353,13 @@ type OfferConnection {
 
 input OfferCreateInput {
   name: String!
+  donors: DonorCreateManyWithoutOffersInput
   items: OfferItemCreateManyWithoutOfferInput
+}
+
+input OfferCreateManyWithoutDonorsInput {
+  create: [OfferCreateWithoutDonorsInput!]
+  connect: [OfferWhereUniqueInput!]
 }
 
 input OfferCreateOneWithoutItemsInput {
@@ -313,8 +367,14 @@ input OfferCreateOneWithoutItemsInput {
   connect: OfferWhereUniqueInput
 }
 
+input OfferCreateWithoutDonorsInput {
+  name: String!
+  items: OfferItemCreateManyWithoutOfferInput
+}
+
 input OfferCreateWithoutItemsInput {
   name: String!
+  donors: DonorCreateManyWithoutOffersInput
 }
 
 type OfferEdge {
@@ -556,6 +616,40 @@ type OfferPreviousValues {
   name: String!
 }
 
+input OfferScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [OfferScalarWhereInput!]
+  OR: [OfferScalarWhereInput!]
+  NOT: [OfferScalarWhereInput!]
+}
+
 type OfferSubscriptionPayload {
   mutation: MutationType!
   node: Offer
@@ -576,11 +670,32 @@ input OfferSubscriptionWhereInput {
 
 input OfferUpdateInput {
   name: String
+  donors: DonorUpdateManyWithoutOffersInput
   items: OfferItemUpdateManyWithoutOfferInput
+}
+
+input OfferUpdateManyDataInput {
+  name: String
 }
 
 input OfferUpdateManyMutationInput {
   name: String
+}
+
+input OfferUpdateManyWithoutDonorsInput {
+  create: [OfferCreateWithoutDonorsInput!]
+  delete: [OfferWhereUniqueInput!]
+  connect: [OfferWhereUniqueInput!]
+  disconnect: [OfferWhereUniqueInput!]
+  update: [OfferUpdateWithWhereUniqueWithoutDonorsInput!]
+  upsert: [OfferUpsertWithWhereUniqueWithoutDonorsInput!]
+  deleteMany: [OfferScalarWhereInput!]
+  updateMany: [OfferUpdateManyWithWhereNestedInput!]
+}
+
+input OfferUpdateManyWithWhereNestedInput {
+  where: OfferScalarWhereInput!
+  data: OfferUpdateManyDataInput!
 }
 
 input OfferUpdateOneRequiredWithoutItemsInput {
@@ -590,13 +705,30 @@ input OfferUpdateOneRequiredWithoutItemsInput {
   connect: OfferWhereUniqueInput
 }
 
+input OfferUpdateWithoutDonorsDataInput {
+  name: String
+  items: OfferItemUpdateManyWithoutOfferInput
+}
+
 input OfferUpdateWithoutItemsDataInput {
   name: String
+  donors: DonorUpdateManyWithoutOffersInput
+}
+
+input OfferUpdateWithWhereUniqueWithoutDonorsInput {
+  where: OfferWhereUniqueInput!
+  data: OfferUpdateWithoutDonorsDataInput!
 }
 
 input OfferUpsertWithoutItemsInput {
   update: OfferUpdateWithoutItemsDataInput!
   create: OfferCreateWithoutItemsInput!
+}
+
+input OfferUpsertWithWhereUniqueWithoutDonorsInput {
+  where: OfferWhereUniqueInput!
+  update: OfferUpdateWithoutDonorsDataInput!
+  create: OfferCreateWithoutDonorsInput!
 }
 
 input OfferWhereInput {
@@ -628,6 +760,9 @@ input OfferWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  donors_every: DonorWhereInput
+  donors_some: DonorWhereInput
+  donors_none: DonorWhereInput
   items_every: OfferItemWhereInput
   items_some: OfferItemWhereInput
   items_none: OfferItemWhereInput

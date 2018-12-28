@@ -1,5 +1,3 @@
-import { isEmpty } from 'lodash'
-
 import { MutationResolvers } from '../../generated/graphqlgen'
 import { Context } from '../../types'
 
@@ -23,24 +21,4 @@ const deleteOfferItem: MutationResolvers.DeleteOfferItemResolver = (
   return context.prisma.deleteOfferItem({ id })
 }
 
-const unassignOfferItemDonor: MutationResolvers.UnassignOfferItemDonorResolver = async (
-  parent,
-  { donorId, offerItemId },
-  context: Context,
-) => {
-  const donors = await context.prisma
-    .updateOfferItem({
-      where: { id: offerItemId },
-      data: { donors: { disconnect: { id: donorId } } },
-    })
-    .donors()
-
-  if (isEmpty(donors)) {
-    await context.prisma.deleteOfferItem({ id: offerItemId })
-    return 'The record was removed from offer because it had no donors'
-  }
-
-  return 'The record was modified'
-}
-
-export { createOfferItem, deleteOfferItem, unassignOfferItemDonor }
+export { createOfferItem, deleteOfferItem }

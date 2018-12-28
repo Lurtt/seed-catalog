@@ -6,6 +6,9 @@ import { OfferResolvers } from "../graphqlgen";
 export const Offer: OfferResolvers.Type = {
   ...OfferResolvers.defaultResolvers,
 
+  donors: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
   items: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   }

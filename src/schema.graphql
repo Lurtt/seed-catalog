@@ -17,6 +17,8 @@ type Mutation {
   createDonor(number: String!, name: String!): Donor!
   updateDonor(id: ID!, number: String, name: String): Donor!
   deleteDonor(id: ID!): Donor
+  removeDonorFromOffer(donorId: ID!, offerId: ID!): String!
+  removeDonorFromOfferItem(donorId: ID!, offerItemId: ID!): String!
 
   createPlant(name: String!): Plant!
   updatePlant(id: ID!, name: String): Plant!
@@ -28,7 +30,6 @@ type Mutation {
 
   createOfferItem(offerId: ID!, donorId: ID!, plantId: ID!): OfferItem!
   deleteOfferItem(id: ID!): OfferItem
-  unassignOfferItemDonor(donorId: ID!, offerItemId: ID!): String!
 }
 
 type User {

@@ -268,9 +268,11 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type OfferItemOrderByInput =
+export type OfferOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -288,11 +290,9 @@ export type DonorOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type OfferOrderByInput =
+export type OfferItemOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -328,9 +328,9 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface OfferUpsertWithoutItemsInput {
-  update: OfferUpdateWithoutItemsDataInput;
-  create: OfferCreateWithoutItemsInput;
+export interface OfferItemUpdateWithoutOfferDataInput {
+  donors?: DonorUpdateManyWithoutOfferItemsInput;
+  plant?: PlantUpdateOneRequiredWithoutOfferItemsInput;
 }
 
 export type DonorWhereUniqueInput = AtLeastOne<{
@@ -338,15 +338,24 @@ export type DonorWhereUniqueInput = AtLeastOne<{
   number?: String;
 }>;
 
-export interface DonorCreateInput {
-  number: String;
-  name: String;
-  OfferItems?: OfferItemCreateManyWithoutDonorsInput;
+export interface PlantCreateOneWithoutOfferItemsInput {
+  create?: PlantCreateWithoutOfferItemsInput;
+  connect?: PlantWhereUniqueInput;
 }
 
-export interface DonorUpdateWithWhereUniqueWithoutOfferItemsInput {
+export interface OfferUpsertWithoutItemsInput {
+  update: OfferUpdateWithoutItemsDataInput;
+  create: OfferCreateWithoutItemsInput;
+}
+
+export interface PlantCreateWithoutOfferItemsInput {
+  name: String;
+}
+
+export interface DonorUpsertWithWhereUniqueWithoutOfferItemsInput {
   where: DonorWhereUniqueInput;
-  data: DonorUpdateWithoutOfferItemsDataInput;
+  update: DonorUpdateWithoutOfferItemsDataInput;
+  create: DonorCreateWithoutOfferItemsInput;
 }
 
 export interface OfferItemCreateManyWithoutDonorsInput {
@@ -356,7 +365,7 @@ export interface OfferItemCreateManyWithoutDonorsInput {
   connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
 }
 
-export interface OfferItemScalarWhereInput {
+export interface OfferItemWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -371,272 +380,19 @@ export interface OfferItemScalarWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  AND?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
-  OR?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
-  NOT?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
+  offer?: OfferWhereInput;
+  donors_every?: DonorWhereInput;
+  donors_some?: DonorWhereInput;
+  donors_none?: DonorWhereInput;
+  plant?: PlantWhereInput;
+  AND?: OfferItemWhereInput[] | OfferItemWhereInput;
+  OR?: OfferItemWhereInput[] | OfferItemWhereInput;
+  NOT?: OfferItemWhereInput[] | OfferItemWhereInput;
 }
 
 export interface OfferItemCreateWithoutDonorsInput {
   offer: OfferCreateOneWithoutItemsInput;
   plant: PlantCreateOneWithoutOfferItemsInput;
-}
-
-export interface PlantWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  offerItems_every?: OfferItemWhereInput;
-  offerItems_some?: OfferItemWhereInput;
-  offerItems_none?: OfferItemWhereInput;
-  AND?: PlantWhereInput[] | PlantWhereInput;
-  OR?: PlantWhereInput[] | PlantWhereInput;
-  NOT?: PlantWhereInput[] | PlantWhereInput;
-}
-
-export interface OfferCreateOneWithoutItemsInput {
-  create?: OfferCreateWithoutItemsInput;
-  connect?: OfferWhereUniqueInput;
-}
-
-export interface OfferItemSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: OfferItemWhereInput;
-  AND?: OfferItemSubscriptionWhereInput[] | OfferItemSubscriptionWhereInput;
-  OR?: OfferItemSubscriptionWhereInput[] | OfferItemSubscriptionWhereInput;
-  NOT?: OfferItemSubscriptionWhereInput[] | OfferItemSubscriptionWhereInput;
-}
-
-export interface OfferCreateWithoutItemsInput {
-  name: String;
-}
-
-export interface DonorSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: DonorWhereInput;
-  AND?: DonorSubscriptionWhereInput[] | DonorSubscriptionWhereInput;
-  OR?: DonorSubscriptionWhereInput[] | DonorSubscriptionWhereInput;
-  NOT?: DonorSubscriptionWhereInput[] | DonorSubscriptionWhereInput;
-}
-
-export interface PlantCreateOneWithoutOfferItemsInput {
-  create?: PlantCreateWithoutOfferItemsInput;
-  connect?: PlantWhereUniqueInput;
-}
-
-export interface UserUpdateInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  role?: Role;
-}
-
-export interface PlantCreateWithoutOfferItemsInput {
-  name: String;
-}
-
-export interface DonorWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  number?: String;
-  number_not?: String;
-  number_in?: String[] | String;
-  number_not_in?: String[] | String;
-  number_lt?: String;
-  number_lte?: String;
-  number_gt?: String;
-  number_gte?: String;
-  number_contains?: String;
-  number_not_contains?: String;
-  number_starts_with?: String;
-  number_not_starts_with?: String;
-  number_ends_with?: String;
-  number_not_ends_with?: String;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  OfferItems_every?: OfferItemWhereInput;
-  OfferItems_some?: OfferItemWhereInput;
-  OfferItems_none?: OfferItemWhereInput;
-  AND?: DonorWhereInput[] | DonorWhereInput;
-  OR?: DonorWhereInput[] | DonorWhereInput;
-  NOT?: DonorWhereInput[] | DonorWhereInput;
-}
-
-export interface DonorUpdateInput {
-  number?: String;
-  name?: String;
-  OfferItems?: OfferItemUpdateManyWithoutDonorsInput;
-}
-
-export interface PlantUpdateManyMutationInput {
-  name?: String;
-}
-
-export interface OfferItemUpdateManyWithoutDonorsInput {
-  create?:
-    | OfferItemCreateWithoutDonorsInput[]
-    | OfferItemCreateWithoutDonorsInput;
-  delete?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  disconnect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  update?:
-    | OfferItemUpdateWithWhereUniqueWithoutDonorsInput[]
-    | OfferItemUpdateWithWhereUniqueWithoutDonorsInput;
-  upsert?:
-    | OfferItemUpsertWithWhereUniqueWithoutDonorsInput[]
-    | OfferItemUpsertWithWhereUniqueWithoutDonorsInput;
-  deleteMany?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
-}
-
-export type OfferItemWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface OfferItemUpdateWithWhereUniqueWithoutDonorsInput {
-  where: OfferItemWhereUniqueInput;
-  data: OfferItemUpdateWithoutDonorsDataInput;
-}
-
-export interface OfferItemUpdateWithWhereUniqueWithoutPlantInput {
-  where: OfferItemWhereUniqueInput;
-  data: OfferItemUpdateWithoutPlantDataInput;
-}
-
-export interface OfferItemUpdateWithoutDonorsDataInput {
-  offer?: OfferUpdateOneRequiredWithoutItemsInput;
-  plant?: PlantUpdateOneRequiredWithoutOfferItemsInput;
-}
-
-export type PlantWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  name?: String;
-}>;
-
-export interface OfferUpdateOneRequiredWithoutItemsInput {
-  create?: OfferCreateWithoutItemsInput;
-  update?: OfferUpdateWithoutItemsDataInput;
-  upsert?: OfferUpsertWithoutItemsInput;
-  connect?: OfferWhereUniqueInput;
-}
-
-export interface PlantUpdateInput {
-  name?: String;
-  offerItems?: OfferItemUpdateManyWithoutPlantInput;
-}
-
-export interface OfferUpdateWithoutItemsDataInput {
-  name?: String;
-}
-
-export interface OfferItemCreateManyWithoutPlantInput {
-  create?:
-    | OfferItemCreateWithoutPlantInput[]
-    | OfferItemCreateWithoutPlantInput;
-  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-}
-
-export interface DonorUpdateManyWithWhereNestedInput {
-  where: DonorScalarWhereInput;
-  data: DonorUpdateManyDataInput;
-}
-
-export interface PlantCreateInput {
-  name: String;
-  offerItems?: OfferItemCreateManyWithoutPlantInput;
-}
-
-export interface PlantUpdateOneRequiredWithoutOfferItemsInput {
-  create?: PlantCreateWithoutOfferItemsInput;
-  update?: PlantUpdateWithoutOfferItemsDataInput;
-  upsert?: PlantUpsertWithoutOfferItemsInput;
-  connect?: PlantWhereUniqueInput;
-}
-
-export interface OfferItemUpdateInput {
-  offer?: OfferUpdateOneRequiredWithoutItemsInput;
-  donors?: DonorUpdateManyWithoutOfferItemsInput;
-  plant?: PlantUpdateOneRequiredWithoutOfferItemsInput;
-}
-
-export interface PlantUpdateWithoutOfferItemsDataInput {
-  name?: String;
-}
-
-export interface OfferItemCreateInput {
-  offer: OfferCreateOneWithoutItemsInput;
-  donors?: DonorCreateManyWithoutOfferItemsInput;
-  plant: PlantCreateOneWithoutOfferItemsInput;
-}
-
-export interface PlantUpsertWithoutOfferItemsInput {
-  update: PlantUpdateWithoutOfferItemsDataInput;
-  create: PlantCreateWithoutOfferItemsInput;
-}
-
-export interface OfferItemUpsertWithWhereUniqueWithoutOfferInput {
-  where: OfferItemWhereUniqueInput;
-  update: OfferItemUpdateWithoutOfferDataInput;
-  create: OfferItemCreateWithoutOfferInput;
-}
-
-export interface OfferItemUpsertWithWhereUniqueWithoutDonorsInput {
-  where: OfferItemWhereUniqueInput;
-  update: OfferItemUpdateWithoutDonorsDataInput;
-  create: OfferItemCreateWithoutDonorsInput;
 }
 
 export interface PlantSubscriptionWhereInput {
@@ -648,6 +404,210 @@ export interface PlantSubscriptionWhereInput {
   AND?: PlantSubscriptionWhereInput[] | PlantSubscriptionWhereInput;
   OR?: PlantSubscriptionWhereInput[] | PlantSubscriptionWhereInput;
   NOT?: PlantSubscriptionWhereInput[] | PlantSubscriptionWhereInput;
+}
+
+export interface OfferCreateOneWithoutItemsInput {
+  create?: OfferCreateWithoutItemsInput;
+  connect?: OfferWhereUniqueInput;
+}
+
+export interface OfferSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OfferWhereInput;
+  AND?: OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput;
+  OR?: OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput;
+  NOT?: OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput;
+}
+
+export interface OfferCreateWithoutItemsInput {
+  name: String;
+  donors?: DonorCreateManyWithoutOffersInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  role?: Role;
+}
+
+export interface DonorCreateManyWithoutOffersInput {
+  create?: DonorCreateWithoutOffersInput[] | DonorCreateWithoutOffersInput;
+  connect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
+}
+
+export type OfferWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface DonorCreateWithoutOffersInput {
+  number: String;
+  name: String;
+  OfferItems?: OfferItemCreateManyWithoutDonorsInput;
+}
+
+export interface PlantUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface DonorUpdateInput {
+  number?: String;
+  name?: String;
+  offers?: OfferUpdateManyWithoutDonorsInput;
+  OfferItems?: OfferItemUpdateManyWithoutDonorsInput;
+}
+
+export type OfferItemWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface OfferUpdateManyWithoutDonorsInput {
+  create?: OfferCreateWithoutDonorsInput[] | OfferCreateWithoutDonorsInput;
+  delete?: OfferWhereUniqueInput[] | OfferWhereUniqueInput;
+  connect?: OfferWhereUniqueInput[] | OfferWhereUniqueInput;
+  disconnect?: OfferWhereUniqueInput[] | OfferWhereUniqueInput;
+  update?:
+    | OfferUpdateWithWhereUniqueWithoutDonorsInput[]
+    | OfferUpdateWithWhereUniqueWithoutDonorsInput;
+  upsert?:
+    | OfferUpsertWithWhereUniqueWithoutDonorsInput[]
+    | OfferUpsertWithWhereUniqueWithoutDonorsInput;
+  deleteMany?: OfferScalarWhereInput[] | OfferScalarWhereInput;
+  updateMany?:
+    | OfferUpdateManyWithWhereNestedInput[]
+    | OfferUpdateManyWithWhereNestedInput;
+}
+
+export interface OfferItemUpdateWithWhereUniqueWithoutPlantInput {
+  where: OfferItemWhereUniqueInput;
+  data: OfferItemUpdateWithoutPlantDataInput;
+}
+
+export interface OfferUpdateWithWhereUniqueWithoutDonorsInput {
+  where: OfferWhereUniqueInput;
+  data: OfferUpdateWithoutDonorsDataInput;
+}
+
+export type PlantWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface OfferUpdateWithoutDonorsDataInput {
+  name?: String;
+  items?: OfferItemUpdateManyWithoutOfferInput;
+}
+
+export interface PlantUpdateInput {
+  name?: String;
+  offerItems?: OfferItemUpdateManyWithoutPlantInput;
+}
+
+export interface OfferItemUpdateManyWithoutOfferInput {
+  create?:
+    | OfferItemCreateWithoutOfferInput[]
+    | OfferItemCreateWithoutOfferInput;
+  delete?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  disconnect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  update?:
+    | OfferItemUpdateWithWhereUniqueWithoutOfferInput[]
+    | OfferItemUpdateWithWhereUniqueWithoutOfferInput;
+  upsert?:
+    | OfferItemUpsertWithWhereUniqueWithoutOfferInput[]
+    | OfferItemUpsertWithWhereUniqueWithoutOfferInput;
+  deleteMany?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
+}
+
+export interface OfferItemCreateManyWithoutPlantInput {
+  create?:
+    | OfferItemCreateWithoutPlantInput[]
+    | OfferItemCreateWithoutPlantInput;
+  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+}
+
+export interface OfferItemUpdateWithWhereUniqueWithoutOfferInput {
+  where: OfferItemWhereUniqueInput;
+  data: OfferItemUpdateWithoutOfferDataInput;
+}
+
+export interface PlantCreateInput {
+  name: String;
+  offerItems?: OfferItemCreateManyWithoutPlantInput;
+}
+
+export interface DonorUpdateManyMutationInput {
+  number?: String;
+  name?: String;
+}
+
+export interface OfferItemUpdateInput {
+  offer?: OfferUpdateOneRequiredWithoutItemsInput;
+  donors?: DonorUpdateManyWithoutOfferItemsInput;
+  plant?: PlantUpdateOneRequiredWithoutOfferItemsInput;
+}
+
+export interface DonorUpdateManyWithoutOfferItemsInput {
+  create?:
+    | DonorCreateWithoutOfferItemsInput[]
+    | DonorCreateWithoutOfferItemsInput;
+  delete?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
+  connect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
+  disconnect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
+  update?:
+    | DonorUpdateWithWhereUniqueWithoutOfferItemsInput[]
+    | DonorUpdateWithWhereUniqueWithoutOfferItemsInput;
+  upsert?:
+    | DonorUpsertWithWhereUniqueWithoutOfferItemsInput[]
+    | DonorUpsertWithWhereUniqueWithoutOfferItemsInput;
+  deleteMany?: DonorScalarWhereInput[] | DonorScalarWhereInput;
+  updateMany?:
+    | DonorUpdateManyWithWhereNestedInput[]
+    | DonorUpdateManyWithWhereNestedInput;
+}
+
+export interface OfferItemCreateInput {
+  offer: OfferCreateOneWithoutItemsInput;
+  donors?: DonorCreateManyWithoutOfferItemsInput;
+  plant: PlantCreateOneWithoutOfferItemsInput;
+}
+
+export interface DonorUpdateWithWhereUniqueWithoutOfferItemsInput {
+  where: DonorWhereUniqueInput;
+  data: DonorUpdateWithoutOfferItemsDataInput;
+}
+
+export interface OfferUpdateInput {
+  name?: String;
+  donors?: DonorUpdateManyWithoutOffersInput;
+  items?: OfferItemUpdateManyWithoutOfferInput;
+}
+
+export interface DonorUpdateWithoutOfferItemsDataInput {
+  number?: String;
+  name?: String;
+  offers?: OfferUpdateManyWithoutDonorsInput;
+}
+
+export interface OfferCreateManyWithoutDonorsInput {
+  create?: OfferCreateWithoutDonorsInput[] | OfferCreateWithoutDonorsInput;
+  connect?: OfferWhereUniqueInput[] | OfferWhereUniqueInput;
+}
+
+export interface OfferItemUpsertWithWhereUniqueWithoutDonorsInput {
+  where: OfferItemWhereUniqueInput;
+  update: OfferItemUpdateWithoutDonorsDataInput;
+  create: OfferItemCreateWithoutDonorsInput;
+}
+
+export interface OfferItemCreateManyWithoutOfferInput {
+  create?:
+    | OfferItemCreateWithoutOfferInput[]
+    | OfferItemCreateWithoutOfferInput;
+  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
 }
 
 export interface DonorScalarWhereInput {
@@ -698,39 +658,145 @@ export interface DonorScalarWhereInput {
   NOT?: DonorScalarWhereInput[] | DonorScalarWhereInput;
 }
 
-export interface UserUpdateManyMutationInput {
+export interface DonorCreateManyWithoutOfferItemsInput {
+  create?:
+    | DonorCreateWithoutOfferItemsInput[]
+    | DonorCreateWithoutOfferItemsInput;
+  connect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
+}
+
+export interface DonorUpdateManyWithWhereNestedInput {
+  where: DonorScalarWhereInput;
+  data: DonorUpdateManyDataInput;
+}
+
+export interface PlantWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  offerItems_every?: OfferItemWhereInput;
+  offerItems_some?: OfferItemWhereInput;
+  offerItems_none?: OfferItemWhereInput;
+  AND?: PlantWhereInput[] | PlantWhereInput;
+  OR?: PlantWhereInput[] | PlantWhereInput;
+  NOT?: PlantWhereInput[] | PlantWhereInput;
+}
+
+export interface DonorUpdateManyDataInput {
+  number?: String;
+  name?: String;
+}
+
+export interface OfferItemSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OfferItemWhereInput;
+  AND?: OfferItemSubscriptionWhereInput[] | OfferItemSubscriptionWhereInput;
+  OR?: OfferItemSubscriptionWhereInput[] | OfferItemSubscriptionWhereInput;
+  NOT?: OfferItemSubscriptionWhereInput[] | OfferItemSubscriptionWhereInput;
+}
+
+export interface PlantUpdateOneRequiredWithoutOfferItemsInput {
+  create?: PlantCreateWithoutOfferItemsInput;
+  update?: PlantUpdateWithoutOfferItemsDataInput;
+  upsert?: PlantUpsertWithoutOfferItemsInput;
+  connect?: PlantWhereUniqueInput;
+}
+
+export interface UserUpdateInput {
   email?: String;
   password?: String;
   name?: String;
   role?: Role;
 }
 
-export interface DonorUpdateManyMutationInput {
-  number?: String;
+export interface PlantUpdateWithoutOfferItemsDataInput {
   name?: String;
 }
 
-export interface UserCreateInput {
-  email: String;
-  password: String;
-  name: String;
-  role?: Role;
+export interface OfferItemUpsertWithWhereUniqueWithoutPlantInput {
+  where: OfferItemWhereUniqueInput;
+  update: OfferItemUpdateWithoutPlantDataInput;
+  create: OfferItemCreateWithoutPlantInput;
 }
 
-export interface DonorUpsertWithWhereUniqueWithoutOfferItemsInput {
-  where: DonorWhereUniqueInput;
-  update: DonorUpdateWithoutOfferItemsDataInput;
-  create: DonorCreateWithoutOfferItemsInput;
+export interface PlantUpsertWithoutOfferItemsInput {
+  update: PlantUpdateWithoutOfferItemsDataInput;
+  create: PlantCreateWithoutOfferItemsInput;
 }
 
-export interface OfferItemUpdateWithoutPlantDataInput {
-  offer?: OfferUpdateOneRequiredWithoutItemsInput;
-  donors?: DonorUpdateManyWithoutOfferItemsInput;
+export interface OfferItemUpdateManyWithoutPlantInput {
+  create?:
+    | OfferItemCreateWithoutPlantInput[]
+    | OfferItemCreateWithoutPlantInput;
+  delete?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  disconnect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  update?:
+    | OfferItemUpdateWithWhereUniqueWithoutPlantInput[]
+    | OfferItemUpdateWithWhereUniqueWithoutPlantInput;
+  upsert?:
+    | OfferItemUpsertWithWhereUniqueWithoutPlantInput[]
+    | OfferItemUpsertWithWhereUniqueWithoutPlantInput;
+  deleteMany?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
 }
 
-export interface DonorUpdateWithoutOfferItemsDataInput {
-  number?: String;
-  name?: String;
+export interface OfferItemUpsertWithWhereUniqueWithoutOfferInput {
+  where: OfferItemWhereUniqueInput;
+  update: OfferItemUpdateWithoutOfferDataInput;
+  create: OfferItemCreateWithoutOfferInput;
+}
+
+export interface OfferItemCreateWithoutPlantInput {
+  offer: OfferCreateOneWithoutItemsInput;
+  donors?: DonorCreateManyWithoutOfferItemsInput;
+}
+
+export interface OfferItemScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  AND?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
+  OR?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
+  NOT?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
 }
 
 export interface OfferWhereInput {
@@ -762,6 +828,9 @@ export interface OfferWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  donors_every?: DonorWhereInput;
+  donors_some?: DonorWhereInput;
+  donors_none?: DonorWhereInput;
   items_every?: OfferItemWhereInput;
   items_some?: OfferItemWhereInput;
   items_none?: OfferItemWhereInput;
@@ -770,21 +839,167 @@ export interface OfferWhereInput {
   NOT?: OfferWhereInput[] | OfferWhereInput;
 }
 
-export interface OfferCreateInput {
-  name: String;
-  items?: OfferItemCreateManyWithoutOfferInput;
+export interface OfferUpsertWithWhereUniqueWithoutDonorsInput {
+  where: OfferWhereUniqueInput;
+  update: OfferUpdateWithoutDonorsDataInput;
+  create: OfferCreateWithoutDonorsInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
+export interface OfferUpdateManyMutationInput {
+  name?: String;
+}
 
-export interface OfferItemCreateManyWithoutOfferInput {
+export interface OfferScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: OfferScalarWhereInput[] | OfferScalarWhereInput;
+  OR?: OfferScalarWhereInput[] | OfferScalarWhereInput;
+  NOT?: OfferScalarWhereInput[] | OfferScalarWhereInput;
+}
+
+export interface DonorCreateInput {
+  number: String;
+  name: String;
+  offers?: OfferCreateManyWithoutDonorsInput;
+  OfferItems?: OfferItemCreateManyWithoutDonorsInput;
+}
+
+export interface OfferUpdateManyWithWhereNestedInput {
+  where: OfferScalarWhereInput;
+  data: OfferUpdateManyDataInput;
+}
+
+export interface OfferItemCreateWithoutOfferInput {
+  donors?: DonorCreateManyWithoutOfferItemsInput;
+  plant: PlantCreateOneWithoutOfferItemsInput;
+}
+
+export interface OfferUpdateManyDataInput {
+  name?: String;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export interface OfferItemUpdateManyWithoutDonorsInput {
   create?:
-    | OfferItemCreateWithoutOfferInput[]
-    | OfferItemCreateWithoutOfferInput;
+    | OfferItemCreateWithoutDonorsInput[]
+    | OfferItemCreateWithoutDonorsInput;
+  delete?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
   connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  disconnect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
+  update?:
+    | OfferItemUpdateWithWhereUniqueWithoutDonorsInput[]
+    | OfferItemUpdateWithWhereUniqueWithoutDonorsInput;
+  upsert?:
+    | OfferItemUpsertWithWhereUniqueWithoutDonorsInput[]
+    | OfferItemUpsertWithWhereUniqueWithoutDonorsInput;
+  deleteMany?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
+}
+
+export interface UserCreateInput {
+  email: String;
+  password: String;
+  name: String;
+  role?: Role;
+}
+
+export interface OfferItemUpdateWithWhereUniqueWithoutDonorsInput {
+  where: OfferItemWhereUniqueInput;
+  data: OfferItemUpdateWithoutDonorsDataInput;
+}
+
+export interface DonorWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  number?: String;
+  number_not?: String;
+  number_in?: String[] | String;
+  number_not_in?: String[] | String;
+  number_lt?: String;
+  number_lte?: String;
+  number_gt?: String;
+  number_gte?: String;
+  number_contains?: String;
+  number_not_contains?: String;
+  number_starts_with?: String;
+  number_not_starts_with?: String;
+  number_ends_with?: String;
+  number_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  offers_every?: OfferWhereInput;
+  offers_some?: OfferWhereInput;
+  offers_none?: OfferWhereInput;
+  OfferItems_every?: OfferItemWhereInput;
+  OfferItems_some?: OfferItemWhereInput;
+  OfferItems_none?: OfferItemWhereInput;
+  AND?: DonorWhereInput[] | DonorWhereInput;
+  OR?: DonorWhereInput[] | DonorWhereInput;
+  NOT?: DonorWhereInput[] | DonorWhereInput;
+}
+
+export interface OfferItemUpdateWithoutDonorsDataInput {
+  offer?: OfferUpdateOneRequiredWithoutItemsInput;
+  plant?: PlantUpdateOneRequiredWithoutOfferItemsInput;
 }
 
 export interface UserWhereInput {
@@ -869,159 +1084,89 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface OfferItemCreateWithoutOfferInput {
-  donors?: DonorCreateManyWithoutOfferItemsInput;
-  plant: PlantCreateOneWithoutOfferItemsInput;
+export interface OfferUpdateOneRequiredWithoutItemsInput {
+  create?: OfferCreateWithoutItemsInput;
+  update?: OfferUpdateWithoutItemsDataInput;
+  upsert?: OfferUpsertWithoutItemsInput;
+  connect?: OfferWhereUniqueInput;
 }
 
-export interface DonorUpdateManyDataInput {
-  number?: String;
+export interface OfferCreateWithoutDonorsInput {
+  name: String;
+  items?: OfferItemCreateManyWithoutOfferInput;
+}
+
+export interface OfferUpdateWithoutItemsDataInput {
   name?: String;
+  donors?: DonorUpdateManyWithoutOffersInput;
 }
 
-export interface DonorCreateManyWithoutOfferItemsInput {
-  create?:
-    | DonorCreateWithoutOfferItemsInput[]
-    | DonorCreateWithoutOfferItemsInput;
-  connect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
-}
-
-export interface OfferSubscriptionWhereInput {
+export interface DonorSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: OfferWhereInput;
-  AND?: OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput;
-  OR?: OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput;
-  NOT?: OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput;
+  node?: DonorWhereInput;
+  AND?: DonorSubscriptionWhereInput[] | DonorSubscriptionWhereInput;
+  OR?: DonorSubscriptionWhereInput[] | DonorSubscriptionWhereInput;
+  NOT?: DonorSubscriptionWhereInput[] | DonorSubscriptionWhereInput;
 }
 
-export interface DonorCreateWithoutOfferItemsInput {
-  number: String;
-  name: String;
+export interface DonorUpsertWithWhereUniqueWithoutOffersInput {
+  where: DonorWhereUniqueInput;
+  update: DonorUpdateWithoutOffersDataInput;
+  create: DonorCreateWithoutOffersInput;
 }
 
-export interface OfferItemUpsertWithWhereUniqueWithoutPlantInput {
-  where: OfferItemWhereUniqueInput;
-  update: OfferItemUpdateWithoutPlantDataInput;
-  create: OfferItemCreateWithoutPlantInput;
-}
-
-export interface OfferUpdateInput {
+export interface DonorUpdateWithoutOffersDataInput {
+  number?: String;
   name?: String;
-  items?: OfferItemUpdateManyWithoutOfferInput;
+  OfferItems?: OfferItemUpdateManyWithoutDonorsInput;
 }
 
-export interface OfferItemCreateWithoutPlantInput {
-  offer: OfferCreateOneWithoutItemsInput;
-  donors?: DonorCreateManyWithoutOfferItemsInput;
+export interface DonorUpdateWithWhereUniqueWithoutOffersInput {
+  where: DonorWhereUniqueInput;
+  data: DonorUpdateWithoutOffersDataInput;
 }
 
-export interface DonorUpdateManyWithoutOfferItemsInput {
-  create?:
-    | DonorCreateWithoutOfferItemsInput[]
-    | DonorCreateWithoutOfferItemsInput;
+export interface DonorUpdateManyWithoutOffersInput {
+  create?: DonorCreateWithoutOffersInput[] | DonorCreateWithoutOffersInput;
   delete?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
   connect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
   disconnect?: DonorWhereUniqueInput[] | DonorWhereUniqueInput;
   update?:
-    | DonorUpdateWithWhereUniqueWithoutOfferItemsInput[]
-    | DonorUpdateWithWhereUniqueWithoutOfferItemsInput;
+    | DonorUpdateWithWhereUniqueWithoutOffersInput[]
+    | DonorUpdateWithWhereUniqueWithoutOffersInput;
   upsert?:
-    | DonorUpsertWithWhereUniqueWithoutOfferItemsInput[]
-    | DonorUpsertWithWhereUniqueWithoutOfferItemsInput;
+    | DonorUpsertWithWhereUniqueWithoutOffersInput[]
+    | DonorUpsertWithWhereUniqueWithoutOffersInput;
   deleteMany?: DonorScalarWhereInput[] | DonorScalarWhereInput;
   updateMany?:
     | DonorUpdateManyWithWhereNestedInput[]
     | DonorUpdateManyWithWhereNestedInput;
 }
 
-export interface OfferItemUpdateWithoutOfferDataInput {
+export interface OfferItemUpdateWithoutPlantDataInput {
+  offer?: OfferUpdateOneRequiredWithoutItemsInput;
   donors?: DonorUpdateManyWithoutOfferItemsInput;
-  plant?: PlantUpdateOneRequiredWithoutOfferItemsInput;
 }
 
-export interface OfferItemUpdateWithWhereUniqueWithoutOfferInput {
-  where: OfferItemWhereUniqueInput;
-  data: OfferItemUpdateWithoutOfferDataInput;
+export interface DonorCreateWithoutOfferItemsInput {
+  number: String;
+  name: String;
+  offers?: OfferCreateManyWithoutDonorsInput;
 }
 
-export interface OfferItemUpdateManyWithoutOfferInput {
-  create?:
-    | OfferItemCreateWithoutOfferInput[]
-    | OfferItemCreateWithoutOfferInput;
-  delete?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  disconnect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  update?:
-    | OfferItemUpdateWithWhereUniqueWithoutOfferInput[]
-    | OfferItemUpdateWithWhereUniqueWithoutOfferInput;
-  upsert?:
-    | OfferItemUpsertWithWhereUniqueWithoutOfferInput[]
-    | OfferItemUpsertWithWhereUniqueWithoutOfferInput;
-  deleteMany?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
+export interface OfferCreateInput {
+  name: String;
+  donors?: DonorCreateManyWithoutOffersInput;
+  items?: OfferItemCreateManyWithoutOfferInput;
 }
 
-export interface OfferItemWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  offer?: OfferWhereInput;
-  donors_every?: DonorWhereInput;
-  donors_some?: DonorWhereInput;
-  donors_none?: DonorWhereInput;
-  plant?: PlantWhereInput;
-  AND?: OfferItemWhereInput[] | OfferItemWhereInput;
-  OR?: OfferItemWhereInput[] | OfferItemWhereInput;
-  NOT?: OfferItemWhereInput[] | OfferItemWhereInput;
-}
-
-export interface OfferItemUpdateManyWithoutPlantInput {
-  create?:
-    | OfferItemCreateWithoutPlantInput[]
-    | OfferItemCreateWithoutPlantInput;
-  delete?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  connect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  disconnect?: OfferItemWhereUniqueInput[] | OfferItemWhereUniqueInput;
-  update?:
-    | OfferItemUpdateWithWhereUniqueWithoutPlantInput[]
-    | OfferItemUpdateWithWhereUniqueWithoutPlantInput;
-  upsert?:
-    | OfferItemUpsertWithWhereUniqueWithoutPlantInput[]
-    | OfferItemUpsertWithWhereUniqueWithoutPlantInput;
-  deleteMany?: OfferItemScalarWhereInput[] | OfferItemScalarWhereInput;
-}
-
-export type OfferWhereUniqueInput = AtLeastOne<{
+export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  email?: String;
 }>;
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface OfferUpdateManyMutationInput {
-  name?: String;
-}
 
 export interface NodeNode {
   id: ID_Output;
@@ -1061,20 +1206,166 @@ export interface UserPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregateOffer {
+export interface OfferConnection {}
+
+export interface OfferConnectionPromise
+  extends Promise<OfferConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OfferEdge>>() => T;
+  aggregate: <T = AggregateOfferPromise>() => T;
+}
+
+export interface OfferConnectionSubscription
+  extends Promise<AsyncIterator<OfferConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OfferEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOfferSubscription>() => T;
+}
+
+export interface Offer {
+  id: ID_Output;
+  name: String;
+}
+
+export interface OfferPromise extends Promise<Offer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  donors: <T = FragmentableArray<Donor>>(
+    args?: {
+      where?: DonorWhereInput;
+      orderBy?: DonorOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  items: <T = FragmentableArray<OfferItem>>(
+    args?: {
+      where?: OfferItemWhereInput;
+      orderBy?: OfferItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface OfferSubscription
+  extends Promise<AsyncIterator<Offer>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  donors: <T = Promise<AsyncIterator<DonorSubscription>>>(
+    args?: {
+      where?: DonorWhereInput;
+      orderBy?: DonorOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  items: <T = Promise<AsyncIterator<OfferItemSubscription>>>(
+    args?: {
+      where?: OfferItemWhereInput;
+      orderBy?: OfferItemOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface AggregateDonor {
   count: Int;
 }
 
-export interface AggregateOfferPromise
-  extends Promise<AggregateOffer>,
+export interface AggregateDonorPromise
+  extends Promise<AggregateDonor>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateOfferSubscription
-  extends Promise<AsyncIterator<AggregateOffer>>,
+export interface AggregateDonorSubscription
+  extends Promise<AsyncIterator<AggregateDonor>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface DonorEdge {
+  cursor: String;
+}
+
+export interface DonorEdgePromise extends Promise<DonorEdge>, Fragmentable {
+  node: <T = DonorPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface DonorEdgeSubscription
+  extends Promise<AsyncIterator<DonorEdge>>,
+    Fragmentable {
+  node: <T = DonorSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PlantPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface PlantPreviousValuesPromise
+  extends Promise<PlantPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface PlantPreviousValuesSubscription
+  extends Promise<AsyncIterator<PlantPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface Plant {
@@ -1116,95 +1407,6 @@ export interface PlantSubscription
   ) => T;
 }
 
-export interface OfferEdge {
-  cursor: String;
-}
-
-export interface OfferEdgePromise extends Promise<OfferEdge>, Fragmentable {
-  node: <T = OfferPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface OfferEdgeSubscription
-  extends Promise<AsyncIterator<OfferEdge>>,
-    Fragmentable {
-  node: <T = OfferSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface OfferConnection {}
-
-export interface OfferConnectionPromise
-  extends Promise<OfferConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<OfferEdge>>() => T;
-  aggregate: <T = AggregateOfferPromise>() => T;
-}
-
-export interface OfferConnectionSubscription
-  extends Promise<AsyncIterator<OfferConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<OfferEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateOfferSubscription>() => T;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateDonor {
-  count: Int;
-}
-
-export interface AggregateDonorPromise
-  extends Promise<AggregateDonor>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateDonorSubscription
-  extends Promise<AsyncIterator<AggregateDonor>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface UserEdge {
   cursor: String;
 }
@@ -1221,20 +1423,22 @@ export interface UserEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface DonorEdge {
-  cursor: String;
-}
+export interface UserConnection {}
 
-export interface DonorEdgePromise extends Promise<DonorEdge>, Fragmentable {
-  node: <T = DonorPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface DonorEdgeSubscription
-  extends Promise<AsyncIterator<DonorEdge>>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
-  node: <T = DonorSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface Donor {
@@ -1247,6 +1451,17 @@ export interface DonorPromise extends Promise<Donor>, Fragmentable {
   id: () => Promise<ID_Output>;
   number: () => Promise<String>;
   name: () => Promise<String>;
+  offers: <T = FragmentableArray<Offer>>(
+    args?: {
+      where?: OfferWhereInput;
+      orderBy?: OfferOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
   OfferItems: <T = FragmentableArray<OfferItem>>(
     args?: {
       where?: OfferItemWhereInput;
@@ -1266,6 +1481,17 @@ export interface DonorSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   number: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  offers: <T = Promise<AsyncIterator<OfferSubscription>>>(
+    args?: {
+      where?: OfferWhereInput;
+      orderBy?: OfferOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
   OfferItems: <T = Promise<AsyncIterator<OfferItemSubscription>>>(
     args?: {
       where?: OfferItemWhereInput;
@@ -1277,25 +1503,6 @@ export interface DonorSubscription
       last?: Int;
     }
   ) => T;
-}
-
-export interface PlantPreviousValues {
-  id: ID_Output;
-  name: String;
-}
-
-export interface PlantPreviousValuesPromise
-  extends Promise<PlantPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-}
-
-export interface PlantPreviousValuesSubscription
-  extends Promise<AsyncIterator<PlantPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface User {
@@ -1471,20 +1678,20 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateUser {
-  count: Int;
+export interface OfferEdge {
+  cursor: String;
 }
 
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
+export interface OfferEdgePromise extends Promise<OfferEdge>, Fragmentable {
+  node: <T = OfferPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
+export interface OfferEdgeSubscription
+  extends Promise<AsyncIterator<OfferEdge>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  node: <T = OfferSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface OfferSubscriptionPayload {
@@ -1510,43 +1717,27 @@ export interface OfferSubscriptionPayloadSubscription
   previousValues: <T = OfferPreviousValuesSubscription>() => T;
 }
 
-export interface Offer {
-  id: ID_Output;
-  name: String;
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
-export interface OfferPromise extends Promise<Offer>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  items: <T = FragmentableArray<OfferItem>>(
-    args?: {
-      where?: OfferItemWhereInput;
-      orderBy?: OfferItemOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface OfferSubscription
-  extends Promise<AsyncIterator<Offer>>,
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  items: <T = Promise<AsyncIterator<OfferItemSubscription>>>(
-    args?: {
-      where?: OfferItemWhereInput;
-      orderBy?: OfferItemOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface PlantConnection {}
@@ -1677,24 +1868,6 @@ export interface AggregatePlantSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserConnection {}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
 export interface OfferItem {
   id: ID_Output;
 }
@@ -1735,18 +1908,31 @@ export interface OfferItemSubscription
   plant: <T = PlantSubscription>() => T;
 }
 
+export interface AggregateOffer {
+  count: Int;
+}
+
+export interface AggregateOfferPromise
+  extends Promise<AggregateOffer>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOfferSubscription
+  extends Promise<AsyncIterator<AggregateOffer>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
-
-export type Long = string;
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
 
 /*
 DateTime scalar input type, allowing Date
@@ -1759,9 +1945,12 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
-export type Boolean = boolean;
+export type ID_Input = string | number;
+export type ID_Output = string;
+
+export type Long = string;
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.

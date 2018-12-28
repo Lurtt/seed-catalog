@@ -24,12 +24,14 @@ type Donor {
   id: ID! @unique
   number: String! @unique
   name: String!
+  offers: [Offer!]! @relation(name: "OffersByDonor")
   OfferItems: [OfferItem!]! @relation(name: "OfferItemsByDonor")
 }
 
 type Offer {
   id: ID! @unique
   name: String!
+  donors: [Donor!]! @relation(name: "OffersByDonor")
   items: [OfferItem!]! @relation(name: "ItemsByOffer", onDelete: CASCADE)
 }
 

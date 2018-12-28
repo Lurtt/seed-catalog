@@ -1,13 +1,15 @@
 import { MutationResolvers } from '../../generated/graphqlgen'
 import { signup, signin, signout } from './Auth'
-import { createDonor, updateDonor, deleteDonor } from './Donor'
+import {
+  createDonor,
+  updateDonor,
+  deleteDonor,
+  removeDonorFromOffer,
+  removeDonorFromOfferItem,
+} from './Donor'
 import { createPlant, updatePlant, deletePlant } from './Plant'
 import { createOffer, updateOffer, deleteOffer } from './Offer'
-import {
-  createOfferItem,
-  deleteOfferItem,
-  unassignOfferItemDonor,
-} from './OfferItem'
+import { createOfferItem, deleteOfferItem } from './OfferItem'
 
 const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
@@ -19,6 +21,8 @@ const Mutation: MutationResolvers.Type = {
   createDonor,
   updateDonor,
   deleteDonor,
+  removeDonorFromOffer,
+  removeDonorFromOfferItem,
 
   createPlant,
   updatePlant,
@@ -30,7 +34,6 @@ const Mutation: MutationResolvers.Type = {
 
   createOfferItem,
   deleteOfferItem,
-  unassignOfferItemDonor,
 }
 
 export { Mutation }

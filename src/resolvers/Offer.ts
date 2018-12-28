@@ -4,7 +4,10 @@ import { Context } from '../types'
 export const Offer: OfferResolvers.Type = {
   ...OfferResolvers.defaultResolvers,
 
-  items: (parent, args, context: Context) => {
-    return context.prisma.offer({ id: parent.id }).items()
+  donors: ({ id }, args, context: Context) => {
+    return context.prisma.offer({ id }).donors()
+  },
+  items: ({ id }, args, context: Context) => {
+    return context.prisma.offer({ id }).items()
   },
 }
