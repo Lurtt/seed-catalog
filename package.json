@@ -22,13 +22,13 @@
     "graphql-shield": "^4.1.0",
     "graphql-yoga": "^1.16.7",
     "lodash": "^4.17.11",
-    "prisma-client-lib": "^1.21.1"
+    "prisma-client-lib": "^1.23.2"
   },
   "devDependencies": {
     "graphqlgen": "^0.4.0",
     "nodemon": "^1.18.9",
-    "prisma": "^1.22.0",
+    "prisma": "^1.23.2",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.2"
   }
 }
