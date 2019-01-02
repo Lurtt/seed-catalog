@@ -4,7 +4,6 @@ import { isAuthenticatedUser, isAdmin } from './rules'
 
 const permissions = shield({
   Query: {
-    me: isAuthenticatedUser,
     users: and(isAuthenticatedUser, isAdmin),
   },
   Mutation: {

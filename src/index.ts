@@ -21,6 +21,9 @@ const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers: resolvers as any,
   middlewares: [permissions],
+  resolverValidationOptions: {
+    requireResolversForResolveType: false,
+  },
   context: (request: any) => {
     const httpRequest = { ...request }
     return {

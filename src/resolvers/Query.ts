@@ -5,6 +5,8 @@ const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,
 
   me: (parent, args, context: Context) => {
+    if (!context.user) return null
+
     const { id } = context.user
     return context.prisma.user({ id })
   },
