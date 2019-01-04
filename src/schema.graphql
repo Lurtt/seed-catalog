@@ -3,7 +3,7 @@
 type Query {
   me: User
   users: [User!]!
-  plants: [Plant!]!
+  plants(where: PlantWhereInput, orderBy: PlantOrderByInput): [Plant!]!
   donors: [Donor!]!
   offer(id: ID!): Offer
   offers(where: OfferWhereInput, orderBy: OfferOrderByInput): [Offer]!

@@ -5,6 +5,15 @@ import { User, Plant, OfferItem, Offer, Donor } from "./prisma-client";
 import { Context } from "../types";
 
 type Role = "ADMIN" | "USER";
+type PlantOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 type OfferItemOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -36,6 +45,66 @@ type OfferOrderByInput =
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
+  export interface PlantWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    name: string | null;
+    name_not: string | null;
+    name_in: string[];
+    name_not_in: string[];
+    name_lt: string | null;
+    name_lte: string | null;
+    name_gt: string | null;
+    name_gte: string | null;
+    name_contains: string | null;
+    name_not_contains: string | null;
+    name_starts_with: string | null;
+    name_not_starts_with: string | null;
+    name_ends_with: string | null;
+    name_not_ends_with: string | null;
+    offerItems_every: OfferItemWhereInput | null;
+    offerItems_some: OfferItemWhereInput | null;
+    offerItems_none: OfferItemWhereInput | null;
+    AND: PlantWhereInput[];
+    OR: PlantWhereInput[];
+    NOT: PlantWhereInput[];
+  }
+  export interface OfferItemWhereInput {
+    id: string | null;
+    id_not: string | null;
+    id_in: string[];
+    id_not_in: string[];
+    id_lt: string | null;
+    id_lte: string | null;
+    id_gt: string | null;
+    id_gte: string | null;
+    id_contains: string | null;
+    id_not_contains: string | null;
+    id_starts_with: string | null;
+    id_not_starts_with: string | null;
+    id_ends_with: string | null;
+    id_not_ends_with: string | null;
+    offer: OfferWhereInput | null;
+    donors_every: DonorWhereInput | null;
+    donors_some: DonorWhereInput | null;
+    donors_none: DonorWhereInput | null;
+    plant: PlantWhereInput | null;
+    AND: OfferItemWhereInput[];
+    OR: OfferItemWhereInput[];
+    NOT: OfferItemWhereInput[];
+  }
   export interface OfferWhereInput {
     id: string | null;
     id_not: string | null;
@@ -128,65 +197,10 @@ export namespace QueryResolvers {
     OR: DonorWhereInput[];
     NOT: DonorWhereInput[];
   }
-  export interface OfferItemWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    offer: OfferWhereInput | null;
-    donors_every: DonorWhereInput | null;
-    donors_some: DonorWhereInput | null;
-    donors_none: DonorWhereInput | null;
-    plant: PlantWhereInput | null;
-    AND: OfferItemWhereInput[];
-    OR: OfferItemWhereInput[];
-    NOT: OfferItemWhereInput[];
-  }
-  export interface PlantWhereInput {
-    id: string | null;
-    id_not: string | null;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt: string | null;
-    id_lte: string | null;
-    id_gt: string | null;
-    id_gte: string | null;
-    id_contains: string | null;
-    id_not_contains: string | null;
-    id_starts_with: string | null;
-    id_not_starts_with: string | null;
-    id_ends_with: string | null;
-    id_not_ends_with: string | null;
-    name: string | null;
-    name_not: string | null;
-    name_in: string[];
-    name_not_in: string[];
-    name_lt: string | null;
-    name_lte: string | null;
-    name_gt: string | null;
-    name_gte: string | null;
-    name_contains: string | null;
-    name_not_contains: string | null;
-    name_starts_with: string | null;
-    name_not_starts_with: string | null;
-    name_ends_with: string | null;
-    name_not_ends_with: string | null;
-    offerItems_every: OfferItemWhereInput | null;
-    offerItems_some: OfferItemWhereInput | null;
-    offerItems_none: OfferItemWhereInput | null;
-    AND: PlantWhereInput[];
-    OR: PlantWhereInput[];
-    NOT: PlantWhereInput[];
+
+  export interface ArgsPlants {
+    where: PlantWhereInput | null;
+    orderBy: PlantOrderByInput | null;
   }
 
   export interface ArgsOffer {
@@ -214,7 +228,7 @@ export namespace QueryResolvers {
 
   export type PlantsResolver = (
     parent: undefined,
-    args: {},
+    args: ArgsPlants,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => Plant[] | Promise<Plant[]>;
@@ -257,7 +271,7 @@ export namespace QueryResolvers {
 
     plants: (
       parent: undefined,
-      args: {},
+      args: ArgsPlants,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Plant[] | Promise<Plant[]>;

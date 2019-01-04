@@ -13,8 +13,8 @@ const Query: QueryResolvers.Type = {
   users: (parent, args, context: Context) => {
     return context.prisma.users()
   },
-  plants: (parent, args, context: Context) => {
-    return context.prisma.plants()
+  plants: (parent, { where, orderBy }, context: Context) => {
+    return context.prisma.plants({ where, orderBy })
   },
   donors: (parent, args, context: Context) => {
     return context.prisma.donors()
